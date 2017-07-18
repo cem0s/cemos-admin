@@ -31,13 +31,6 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/dashboard';
 
-    /**
-     * userRepo
-     *
-     * @var
-     */
-    protected $userRepo;
-
      /**
      * maxLoginAttempts
      *
@@ -51,6 +44,9 @@ class LoginController extends Controller
      * @var
      */
     protected $lockoutTime;
+
+
+    protected $em;
  
 
     /**
@@ -61,7 +57,7 @@ class LoginController extends Controller
     public function __construct(EntityManager $em)
     {
         $this->middleware('guest')->except('logout');
-        $this->userRepo = $em->getRepository('App\Entity\Management\User');
+        $this->em = $em;
         $this->lockoutTime  = 1;    //lockout for 1 minute (value is in minutes)
         $this->maxLoginAttempts = 2;  //lockout after 2 attempts
     }
@@ -88,10 +84,12 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-      
+
         $this->validate($request, [
             'email' => 'required|email', 'password' => 'required',
         ]);
+
+        $userRepo = $this->em->getRepository('App\Entity\Management\User');
 
         // 2) Check if the user has surpassed their alloed maximum of login attempts
         // We'll key this by the username and the IP address of the client making 
@@ -104,11 +102,11 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         //Check the credentials if already existed in the user table
-        $checkIfExists = $this->userRepo->checkCredentials($credentials);
+        $checkIfExists = $userRepo->checkCredentials($credentials);
 
         if ($checkIfExists['exist'] == "yes")
         { 
-            $user = $this->userRepo->getUserById($checkIfExists['user_id']);
+            $user = $userRepo->getUserById($checkIfExists['user_id']);
 
             //Add necessary data to session
             $request->session()->put('email',$credentials['email']); 
@@ -119,6 +117,10 @@ class LoginController extends Controller
             Auth::login($user);
             $request->session()->regenerate();
             $this->clearLoginAttempts($request);
+
+            $companyRepo = $this->em->getRepository('App\Entity\Management\Company');
+            $companyCount = count($companyRepo->getAllCompany());
+            $request->session()->put('company_count',$companyCount); 
 
             return redirect()->route('dashboard');
           

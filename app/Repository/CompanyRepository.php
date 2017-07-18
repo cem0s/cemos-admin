@@ -38,6 +38,20 @@ class CompanyRepository extends EntityRepository
 		}
 		return array();
 	}
+
+	public function getAllCompany()
+	{
+		$qb = $this->_em->createQueryBuilder();
+		$qb->select('c')
+		   ->from('App\Entity\Management\Company','c');
+
+		$queryResults = $qb->getQuery()->getArrayResult();
+		if(!empty($queryResults)) {
+			return $queryResults;
+		}
+
+		return array();
+	}
 }
 
 

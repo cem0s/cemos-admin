@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('title')
-    Register
+    Log In
 @endsection
 
 @section('content')

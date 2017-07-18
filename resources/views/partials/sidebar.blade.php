@@ -17,19 +17,7 @@
           @endif
         </div>
       </div>
-      <!-- search form -->
-     {{--  <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form> --}}
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
+
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview menu-open">
@@ -42,13 +30,13 @@
             <i class="fa fa-building-o"></i>
             <span>Company</span>
             <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
+              <span class="label label-primary pull-right">{{Session::get('company_count')}}</span>
             </span>
           </a>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-users"></i>
             <span>Suppliers</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -61,7 +49,7 @@
         </li>
           <li class="treeview">
           <a href="#">
-          <i class="fa fa-pie-chart"></i>
+          <i class="fa fa-shopping-bag"></i>
             <span>Products</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -73,7 +61,7 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-home"></i>
             <span>Property</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -87,7 +75,7 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-list"></i>
             <span>Orders</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -102,7 +90,7 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-print"></i>
             <span>Invoices</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -114,7 +102,7 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-file-text"></i>
             <span>Memos</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
