@@ -217,16 +217,26 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              @if(Auth::check())
+                <img src="{{ asset(Auth::user()->getProfilePic())}}" class="img-circle"  style="max-width: 45px;height: 18px;" alt="User Image">
+              @else 
+                <img src="{{ asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+              @endif
+             
+              <span class="hidden-xs">{{Auth::user()->getFirstname()}} {{Auth::user()->getLastName()}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{ asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                @if(Auth::check())
+                  <img src="{{ asset(Auth::user()->getProfilePic())}}" class="img-circle" style="max-width: 45px;height: 50px;" alt="User Image">
+                @else 
+                  <img src="{{ asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                @endif
+             
 
                 <p>
-                  Alexander Pierce - Web Developer
+                  {{Auth::user()->getFirstname()}} {{Auth::user()->getLastName()}}
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>

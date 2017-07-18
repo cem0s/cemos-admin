@@ -42,6 +42,12 @@ class OrderRepository extends EntityRepository
 		}
 	}
 
+
+	/**
+     * This function gets all the orders with orderlines for displaying in cemos portal
+     * @author Gladys Vailoces <gladys@cemos.ph> 
+     * @return array
+     */
 	public function getOrders($objId)
 	{
 		$orderLines = array();
@@ -70,6 +76,11 @@ class OrderRepository extends EntityRepository
 
 	}
 
+	/**
+	* This function can be reusable to get all the orders by objId
+	* @author Gladys Vailoces
+	* @return array
+	*/
 	public function getOrdersByObjId($objId)
 	{
 		$qb = $this->_em->createQueryBuilder();
@@ -82,6 +93,32 @@ class OrderRepository extends EntityRepository
 		if(!empty($queryResult)) {
 			return $queryResult;
 		} 
+		return array();
+	}
+
+	/**
+	* Fetch all orders
+	* @author Gladys Vailoces
+	* @return array
+	*/
+	public function getAllOrders()
+	{
+		$qb = $this->_em->createQueryBuilder();
+		$qb->select('o.id, c.name as company, u.firstName, u.lastName, o.createdAt, s.name as status, p.name as objectName, p.address1, p.town, p.country, p.zipcode')
+		   ->from('App\Entity\Commerce\Order', 'o')
+		   ->leftJoin('App\Entity\Management\Company','c','WITH','c.id = o.companyId')
+		   ->leftJoin('App\Entity\Management\User','u','WITH','u.id = o.userId')
+		   ->leftJoin('App\Entity\Commerce\Status','s','WITH','s.id = o.orderStatusId')
+		   ->leftJoin('App\Entity\Realestate\Object','p','WITH','p.id = o.objectId');
+		     
+		$queryResult = $qb->getQuery()->getArrayResult();
+		if(!empty($queryResult)) {
+			foreach ($queryResult as $key => $value) {
+				$queryResult[$key]['createdAt'] = $value['createdAt']->format('c');
+			}
+			return $queryResult;
+		} 
+		
 		return array();
 	}
 

@@ -11,11 +11,15 @@
 <!-- jvectormap  -->
 <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.min.js')}}"></script>
 <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
+<!-- DataTables -->
+<script src="{{ asset('css/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('css/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+
 <!-- SlimScroll -->
 <script src="{{ asset('css/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 <!-- ChartJS -->
 <script src="{{ asset('css/Chart.js/Chart.js')}}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('js/pages/dashboard2.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('js/demo.js')}}"></script>
+<script src="{{ asset('js/custom.js')}}"></script>
+
+</script>
+

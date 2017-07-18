@@ -19,4 +19,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+	Route::get('/orders', 'OrderController@index')->name('orders');
 });

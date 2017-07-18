@@ -20,8 +20,8 @@
 
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview menu-open">
-          <a href="#">
+        <li class="active">
+          <a href="{{url('dashboard')}}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
@@ -82,7 +82,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Order List</a></li>
+            <li><a href="{{url('orders')}}"><i class="fa fa-circle-o"></i> Order List</a></li>
             <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Order Status</a></li>
             <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Order Product List</a></li>
             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Order Product Status</a></li>
