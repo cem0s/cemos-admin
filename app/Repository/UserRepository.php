@@ -152,12 +152,17 @@ class UserRepository extends EntityRepository
 	public function checkCredentials($credentials)
     {
     	$repo = $this->_em->getRepository(\App\Entity\Management\User::class);
+    	$companyRepo = $this->_em->getRepository('App\Entity\Management\Company');
 		$search = $repo->findBy(array('email'=> $credentials['email']));
 		if(isset($search) && !empty($search)){
 			foreach ($search as $key => $value) {
 				if(Hash::check($credentials['password'], $value->getPassword()) && $value->getActive() == 1) {
 					if($value->getEmailVerified() == true) {
-						return array('exist'=>'yes', 'user_id'=>$value->getId());
+						if($this->checkIfAdmin($value->getCompanyId())) {
+							return array('exist'=>'yes', 'user_id'=>$value->getId());
+						} else {
+							return array('exist'=>'not admin');
+						}
 					} else {
 						return array('exist'=>'not verified');
 					}
@@ -344,6 +349,20 @@ class UserRepository extends EntityRepository
 				'company_id' 	=> $user->getCompanyId(),
 				),
 		);
+    }
+
+    private function checkIfAdmin($companyId)
+    {
+    	$repo = $this->_em->getRepository('App\Entity\Management\Company');
+    	$types = $repo->getCompanyType($companyId);
+    	if(!empty($types)) {
+    		foreach ($types as $key => $value) {
+    			if(strtolower($value) == "admin") {
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
     }
 
     /**

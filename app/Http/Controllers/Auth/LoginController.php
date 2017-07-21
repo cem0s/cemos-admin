@@ -120,7 +120,9 @@ class LoginController extends Controller
 
             $companyRepo = $this->em->getRepository('App\Entity\Management\Company');
             $companyCount = count($companyRepo->getAllCompany());
+            $types = $companyRepo->getCompanyType($user->getCompanyId());
             $request->session()->put('company_count',$companyCount); 
+            $request->session()->put('user_type',$types); 
 
             return redirect()->route('dashboard');
           
@@ -128,7 +130,10 @@ class LoginController extends Controller
             $this->incrementLoginAttempts($request);
     
             return redirect()->route('login')->with('status','Sorry, no account existed with credentials provided.');
-        } else {
+        } else if($checkIfExists['exist'] == "not admin"){
+
+            return redirect()->route('login')->with('status','Sorry, you have no admin privileges. Kindly contact the web admin for your access.');
+        }  else {
             
             return redirect()->route('login')->with('status','Sorry, your account needs to be activated. Please check your email for activation link.');
 

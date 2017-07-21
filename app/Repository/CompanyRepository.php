@@ -52,6 +52,26 @@ class CompanyRepository extends EntityRepository
 
 		return array();
 	}
+
+	public function getCompanyType($id)
+	{
+		$res = array();
+		$qb = $this->_em->createQueryBuilder();
+		$qb->select('c.id, c.name, ct.name as company_type')
+		   ->from('App\Entity\Management\Company', 'c')
+		   ->leftJoin('App\Entity\Management\CompanyCompanyType','cct','WITH','cct.companyId = c.id')
+		   ->leftJoin('App\Entity\Management\CompanyType','ct','WITH','ct.id = cct.companyTypeId')
+		   ->where('c.id = :id')
+		   ->setParameter('id', $id);
+		$queryResults = $qb->getQuery()->getArrayResult();
+		if(!empty($queryResults)) {
+			foreach ($queryResults as $key => $value) {
+				$res[] = $value['company_type'];
+			}
+		}
+	
+		return $res;
+	}
 }
 
 

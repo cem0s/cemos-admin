@@ -6,12 +6,18 @@
 
 @section('content')
 <body class="hold-transition login-page">
-    <img src="{{asset('img/cemos_logo.png')}}" class="img-responsive" style="margin-left: 100px;margin-top: 50px;">
+    <img src="{{asset('images/cemos_logo.png')}}" class="img-responsive" style="margin-left: 100px;margin-top: 50px;">
+    
     <div class="login-box">
         <div class="login-logo">
             <a href="../../index2.html"><b>Cemos</b>Admin</a>
         </div>
-            <div class="login-box-body">
+        @if (session('status')) 
+            {{ session('status') }}  
+            <hr>    
+        @endif
+
+        <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
             <form action="{{url('login')}}" method="post">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
