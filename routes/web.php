@@ -27,4 +27,6 @@ Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/get-supplier-type', 'SupplierController@getSupplierTypes')->name('get-supplier-type');
 	Route::get('/get-supplier-by-type', 'SupplierController@getSupplierByType')->name('get-supplier-by-type');
 	Route::get('/assign-supplier', 'SupplierController@assignSupplier')->name('assign-supplier');
+
+	Route::post('/add-credit', 'CreditPointsController@postCreditPoints')->name('add-credit');
 });

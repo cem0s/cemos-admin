@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * CreditPoints
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\App\Repository\CreditPointsRepository")
  * @ORM\Table(name="credit_points")
  */
 class CreditPoints
@@ -32,7 +32,7 @@ class CreditPoints
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="integer", nullable=true)
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="id", referencedColumnName="id")
      */
