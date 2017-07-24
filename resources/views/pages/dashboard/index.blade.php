@@ -33,7 +33,7 @@
 
 	    <div class="info-box-content">
 	      <span class="info-box-text">Orders</span>
-	      <span class="info-box-number">90</span>
+	      <span class="info-box-number">{{count($data)}}</span>
 	    </div>
 	    <!-- /.info-box-content -->
 	  </div>
@@ -70,4 +70,40 @@
 	</div>
 	<!-- /.col -->
 	</div>
+	 <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title"><b>New Orders!</b> <a href="# "><i class="fa fa-bell faa-ring animated"></i></a> </h3>
+
+           
+        </div>
+       
+	    <div class="box-body">
+	        <div class="col-md-12">
+	            <ul class="products-list product-list-in-box">
+	            	@if(!empty($data))
+	            		@foreach($data as $key => $value)
+		            		@if(strtolower($value['status']) == "new")
+			                <li class="item">
+			                    <div class="product-img">
+				                     <i class="fa fa-shopping-cart fa-3x"></i>
+				                </div>
+				                 <div class="product-info">
+				                    <a href="{{ url('order-details/'.$value['id'].'')}}" class="product-title">Order # {{$value['id']}}</a>
+	  			                        <span class="label label-primary pull-right">{{date('F d, Y h:i:s', strtotime($value['createdAt']))}}</span></a>
+					                    <span class="product-description">
+					                        {{ $value['address1']}}, {{$value['town']}}, {{$value['zipcode']}}, Philippines
+					                        <p style="display: inline;margin-left: 27%">{{$value['company']}} - {{$value['firstName']}} {{$value['lastName']}}</p>
+					                    </span>
+
+				                 </div>
+			                </li>
+			                @endif
+		                @endforeach
+		            @else 
+		            	No new orders for today.
+	                @endif
+	            </ul>
+	        </div>
+        </div>
+    </div>
 @endsection

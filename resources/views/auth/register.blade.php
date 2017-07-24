@@ -6,7 +6,7 @@
 
 @section('content')
 <body class="hold-transition register-page">
-    <img src="{{asset('img/cemos_logo.png')}}" class="img-responsive" style="margin-left: 100px;margin-top: 50px;">
+    <img src="{{asset('images/cemos_logo.png')}}" class="img-responsive" style="margin-left: 100px;margin-top: 50px;">
     <div class="register-box">
         <div class="register-logo">
             <a href="../../index2.html"><b>Cemos</b>Admin</a>

@@ -78,6 +78,41 @@ class OrderProductRepository extends EntityRepository
 		
 		return $result;
 	}
+
+	public function updateOrderProductStatus($statusId = 0, $orderId = 0, $orderPId = 0)
+	{
+		$repo = $this->_em->getRepository(\App\Entity\Commerce\OrderProduct::class);
+		if($orderId > 0 ){
+			$results = $repo->findBy(array('orderId'=> $orderId));
+			if(!empty($results)) {
+				foreach ($results as $key => $value) {
+					$value->setOrderProductStatusId($statusId);
+					$this->_em->merge($value);
+					$this->_em->flush();
+				}
+			}
+		} else {
+			$result = $repo->find($orderPId);
+			if(!empty(array($result))) {
+				$result->setOrderProductStatusId($statusId);
+				$this->_em->merge($result);
+				$this->_em->flush();
+			}
+		}
+	}
+
+	public function assignSupplier($data)
+	{
+		$repoRes = $this->_em->getRepository(\App\Entity\Commerce\OrderProduct::class)->find($data['id']);
+		if(!empty(array($repoRes))) {
+			$repoRes->setSupplierId($data['supplier']);
+			$this->_em->merge($repoRes);
+			$this->_em->flush();
+			return true;
+		}
+		return false;
+
+	}
 }
 
 ?>

@@ -20,7 +20,7 @@
 
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active">
+        <li>
           <a href="{{url('dashboard')}}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>

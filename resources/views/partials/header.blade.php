@@ -11,9 +11,9 @@
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+  {{--     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
-      </a>
+      </a> --}}
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
@@ -31,7 +31,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                        <img src="{{ asset('images/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Support Team
@@ -44,7 +44,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('img/user3-128x128.jpg')}}" class="img-circle" alt="User Image">
+                        <img src="{{ asset('images/user3-128x128.jpg')}}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         AdminLTE Design Team
@@ -56,7 +56,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('img/user4-128x128.jpg')}}" class="img-circle" alt="User Image">
+                        <img src="{{ asset('images/user4-128x128.jpg')}}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Developers
@@ -68,7 +68,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('img/user3-128x128.jpg')}}" class="img-circle" alt="User Image">
+                        <img src="{{ asset('images/user3-128x128.jpg')}}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Sales Department
@@ -80,7 +80,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('img/user4-128x128.jpg')}}" class="img-circle" alt="User Image">
+                        <img src="{{ asset('images/user4-128x128.jpg')}}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Reviewers
@@ -220,7 +220,7 @@
               @if(Auth::check())
                 <img src="{{ asset(Auth::user()->getProfilePic())}}" class="img-circle"  style="max-width: 45px;height: 18px;" alt="User Image">
               @else 
-                <img src="{{ asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                <img src="{{ asset('images/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
               @endif
              
               <span class="hidden-xs">{{Auth::user()->getFirstname()}} {{Auth::user()->getLastName()}}</span>
@@ -231,7 +231,7 @@
                 @if(Auth::check())
                   <img src="{{ asset(Auth::user()->getProfilePic())}}" class="img-circle" style="max-width: 45px;height: 50px;" alt="User Image">
                 @else 
-                  <img src="{{ asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                  <img src="{{ asset('images/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
                 @endif
              
 
@@ -271,9 +271,9 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
+       {{--    <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+          </li> --}}
         </ul>
       </div>
 

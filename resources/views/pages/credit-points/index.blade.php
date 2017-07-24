@@ -20,8 +20,40 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-
-	        </div>
+                <table id="ordertable" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>User</th>
+                      <th>Company</th>
+                      <th>Credits</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{-- @foreach($orderData as $key => $value) --}}
+                      <tr>
+                        <td>test</td>
+                        <td>test</td>
+                        <td>test</td>
+                        <td>test</td>
+                        <td>
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-flat">Action</button>
+                            <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                              <span class="caret"></span>
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="javascript:void()" onclick="showOrderStatusModal('1')"><i class="ion ion-wrench"></i> Update</a></li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                    {{-- @endforeach --}}
+                  </tbody>
+              </table>
+          </div>
 	    </div>
    	</div>
 </div>
