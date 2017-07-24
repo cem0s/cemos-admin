@@ -75,6 +75,7 @@ function getSupplierList()
 
 function getSupplierType()
 {
+	$('#modal-supplier select[name="type"]').html('');
 	$.ajax({
 		url: "/cemos-admin/get-supplier-type",
 		success: function(res){

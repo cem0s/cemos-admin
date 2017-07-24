@@ -21,7 +21,7 @@ class DashboardController extends Controller
     {
     	$orderRepo = $this->em->getRepository('App\Entity\Commerce\Order');
     	$orders = $orderRepo->getAllOrders();
-
+ 
     	return view('pages.dashboard.index')->with('data',$orders);
     }
 }
