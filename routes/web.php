@@ -20,14 +20,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 	Route::get('/orders', 'OrderController@index')->name('orders');
-<<<<<<< HEAD
 	Route::get('/credit-points', 'CreditPointsController@index')->name('credit-points');
-=======
 	Route::get('/order-details/{id}', 'OrderController@orderDetails')->name('order-details');
 	Route::get('/change-order-status', 'OrderController@changeOrderStatus')->name('change-order-status');
 	Route::get('/get-suppliers', 'SupplierController@getSuppliers')->name('get-suppliers');
 	Route::get('/get-supplier-type', 'SupplierController@getSupplierTypes')->name('get-supplier-type');
 	Route::get('/get-supplier-by-type', 'SupplierController@getSupplierByType')->name('get-supplier-by-type');
 	Route::get('/assign-supplier', 'SupplierController@assignSupplier')->name('assign-supplier');
->>>>>>> ad56fcc25bc6f64a47308ae2c7d8cc85658bcb9a
 });
