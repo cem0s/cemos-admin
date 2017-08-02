@@ -112,6 +112,18 @@
             <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Memo List</a></li>
           </ul>
         </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-file-text"></i>
+            <span>Credit points</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('credit-points')}}"><i class="fa fa-circle-o"></i> Credit point list</a></li>
+          </ul>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->
