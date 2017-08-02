@@ -71,15 +71,33 @@
 							<td>&#8369 {{ $value['price']}}</td>
 							<td>{{ $value['quantity']}}</td>
 							<td>
-								@if(isset($value['supplier']['name']))
-									{{$value['supplier']['name']}}
-								@else 
-									No Supplier Yet.
+								@if(strtolower($value['status']['name']) == "delivered")
+									@foreach($value['suppliers'] as $sKey => $sValue)
+										Step 
+										@if($sKey == 0)
+											1
+										@else 
+											{{++$sKey}}
+										@endif - 
+										 	{{$sValue}} <br>
+										
+									@endforeach
+								@else
+									@if(isset($value['supplier']['name']))
+										{{$value['supplier']['name']}}
+									@else 
+										No Supplier Yet.
+									@endif
 								@endif
 							</td>
 							<td>{{ $value['step']}}</td>
 							<td>{{ $value['status']['name']}}</td>
 							<td>
+								@if($data['order']['status'] == "New")
+								Please change the order status to "Accepted" first.
+								@elseif($value['status']['name'] == "Delivered" || $value['status']['name'] == "Approved")
+								No actions available for delivered or approved products.
+								@else
 				                <div class="btn-group">
 				                  <button type="button" class="btn btn-primary">Change</button>
 				                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -87,9 +105,10 @@
 				                    <span class="sr-only">Toggle Dropdown</span>
 				                  </button>
 				                <ul class="dropdown-menu" role="menu">
-				                    <li><a href="javascript:void(0)" onclick="changeSupplier({{$value['id']}})">Supplier</a></li>
+				                    <li><a href="javascript:void(0)" onclick="changeSupplier({{$value['id']}}, {{$data['nId']}})">Supplier</a></li>
 				                  </ul>
 				                </div>
+				                @endif
 							</td>
 						</tr>
 					@endforeach

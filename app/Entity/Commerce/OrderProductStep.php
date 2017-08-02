@@ -1,56 +1,44 @@
 <?php
 
-namespace App\Entity\Management;
+namespace App\Entity\Commerce;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Address
- * @ORM\Entity(repositoryClass="\App\Repository\NotificationRepository")
- * @ORM\Table(name="notification")
+ * OrderProductStep
+ * @ORM\Entity (repositoryClass="App\Repository\OrderProductStepRepository")
+ * @ORM\Table(name="order_product_step")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
-class Notification
+class OrderProductStep
 {
-    /**
+	/**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="order_product_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\OneToOne(targetEntity="OrderProduct")
+     * @ORM\JoinColumn(name="id", referencedColumnName="id")
      */
-    private $id;
-
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="order_id", type="integer", nullable=false)
-     */
-    private $orderId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="product_id", type="integer", nullable=false)
-     */
-    private $productId;
+    private $orderProductId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="step", type="integer", nullable=false)
+     * @ORM\Id
      */
     private $step;
 
-
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="is_active", type="boolean", nullable=true)
+     * @var integer
+     * @ORM\Id
+     * @ORM\Column(name="supplier_id", type="integer", nullable=false)
+     * @ORM\OneToOne(targetEntity="Company")
+     * @ORM\JoinColumn(name="id", referencedColumnName="id")
      */
-    private $isActive;
-
+    private $supplierId;
 
     /**
      * @var \DateTime
@@ -67,74 +55,40 @@ class Notification
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
-
+     
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     private $deletedAt;
-    
 
     /***** Getters and setters *****/
-	
+
     /**
-     * Get id
+     * Get orderProductId
      *
      * @return integer 
      */
-    public function getId()
+    public function getOrderProductId()
     {
-        return $this->id;
-    }
- 
-    /**
-     * Get orderId
-     *
-     * @return integer 
-     */
-    public function getOrderId()
-    {
-        return $this->orderId;
+        return $this->orderProductId;
     }
 
     /**
-     * Set orderId
+     * Set orderProductId
      *
-     * @param integer $orderId
-     * @return Notification
+     * @param integer $orderProductId
+     * @return OrderProductStep
      */
-    public function setOrderId($orderId)
+    public function setOrderProductId($orderProductId)
     {
-        $this->orderId = $orderId;
+        $this->orderProductId = $orderProductId;
 
         return $this;
     }
 
-    /**
-     * Get productId
-     *
-     * @return integer 
-     */
-    public function getProductId()
-    {
-        return $this->productId;
-    }
-
-    /**
-     * Set productId
-     *
-     * @param integer $productId
-     * @return Notification
-     */
-    public function setProductId($productId)
-    {
-        $this->productId = $productId;
-
-        return $this;
-    }
-
-    /**
+	/**
      * Get step
      *
      * @return integer 
@@ -148,7 +102,7 @@ class Notification
      * Set step
      *
      * @param integer $step
-     * @return Notification
+     * @return OrderProductStep
      */
     public function setStep($step)
     {
@@ -157,29 +111,30 @@ class Notification
         return $this;
     }
 
-
     /**
-     * Get step
+     * Get supplierId
      *
      * @return integer 
      */
-    public function getIsActive()
+    public function getSupplierId()
     {
-        return $this->isActive;
+        return $this->supplierId;
     }
 
     /**
-     * Set isActive
+     * Set supplierId
      *
-     * @param integer $isActive
-     * @return Notification
+     * @param integer $supplierId
+     * @return OrderProductStep
      */
-    public function setIsActive($isActive)
+    public function setSupplierId($supplierId)
     {
-        $this->isActive = $isActive;
+        $this->supplierId = $supplierId;
 
         return $this;
     }
+
+
     /**
      * Get createdAt
      *
@@ -214,9 +169,9 @@ class Notification
      * Set deletedAt
      *
      * @param integer $deletedAt
-     * @return Address
+     * @return OrderProductStep
      */
-    public function setDeletedAt($deletedAt)
+    public function setDeletedAt($deleted_at)
     {
         $this->deletedAt = $deletedAt;
 

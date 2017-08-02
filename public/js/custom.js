@@ -9,6 +9,7 @@
 
 
 
+
 });
 
 function changeStatus(id, orderId)
@@ -28,15 +29,15 @@ function changeStatus(id, orderId)
 	});
 }
 
-function changeSupplier(id)
+function changeSupplier(id, nId)
 {
-	getModalForSupplier(id);
+	getModalForSupplier(id, nId);
 	getSupplierType();
 	$('#modal-supplier').modal('show');
 
 }
 
-function getModalForSupplier(id)
+function getModalForSupplier(id, nId)
 {
 	var modal = '';
 
@@ -54,7 +55,7 @@ function getModalForSupplier(id)
 		        modal+='</div>';
 		        modal+='<div class="modal-footer">';
 		            modal+='<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>';
-		            modal+='<button type="button" class="btn btn-primary" onclick="assign('+id+')">Assign Supplier</button>';
+		            modal+='<button type="button" class="btn btn-primary" onclick="assign('+id+ ','+nId+ ')">Assign Supplier</button>';
 		        modal+='</div>';
 	        modal+='</div>';
 	   modal+=' </div>';
@@ -111,13 +112,13 @@ function showSupplier()
 	});
 }
 
-function assign(id)
+function assign(id, nId)
 {
 	var supId = $('#supplier').val();
 
 	$.ajax({
 		url: '/cemos-admin/assign-supplier',
-		data:{ id: id, supplier:supId},
+		data:{ id: id, supplier:supId, nId:nId},
 		success: function(res)
 		{
 			if(res) {

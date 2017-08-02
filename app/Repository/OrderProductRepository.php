@@ -54,6 +54,7 @@ class OrderProductRepository extends EntityRepository
 	{
 		$result = array();
 		$repo = $this->_em->getRepository(\App\Entity\Commerce\OrderProduct::class);
+		$stepRepo = $this->_em->getRepository(\App\Entity\Commerce\OrderProductStep::class);
 		$productRepo = $this->_em->getRepository(\App\Entity\Commerce\Product::class);
 		$statusRepo = $this->_em->getRepository(\App\Entity\Commerce\Status::class);
 		$compRepo = $this->_em->getRepository(\App\Entity\Management\Company::class);
@@ -72,6 +73,7 @@ class OrderProductRepository extends EntityRepository
 					'supplierUserId' => $value->getSupplierUserId(),
 					'status' => $statusRepo->getStatusById($value->getOrderProductStatusId()),
 					'createdAt' => $value->getCreatedAt()->format('c'),
+					'suppliers' => $stepRepo->getSuppliersByOrderPId($value->getId())
 				);
 			}
 		}
@@ -104,15 +106,49 @@ class OrderProductRepository extends EntityRepository
 	public function assignSupplier($data)
 	{
 		$repoRes = $this->_em->getRepository(\App\Entity\Commerce\OrderProduct::class)->find($data['id']);
+		$repoOrderStep = $this->_em->getRepository(\App\Entity\Commerce\OrderProductStep::class);
+		$nRepo = $this->_em->getRepository(\App\Entity\Management\Notification::class);
+
 		if(!empty(array($repoRes))) {
 			$repoRes->setSupplierId($data['supplier']);
 			$this->_em->merge($repoRes);
 			$this->_em->flush();
+
+			$orderStepArray = array(
+				'op_id' => $data['id'],
+				'supplier_id'=>$data['supplier'],
+				'step'=>$repoRes->getStep()
+				);
+			$repoOrderStep->addOrderProductStep($orderStepArray);
+			if(isset($data['nId']) &&  $data['nId'] > 0 ){
+				$nRepo->updateNotif($data['nId']);
+			}
+
 			return true;
 		}
 		return false;
 
 	}
+
+	public function getDeliveredProducts()
+	{
+		$qb = $this->_em->createQueryBuilder();
+		$qb->select('p.id, o.id as orderId, pr.name as product, ob.name as object, c.name as company')
+		   ->from('App\Entity\Commerce\OrderProduct','p')
+		   ->leftJoin('App\Entity\Commerce\Order','o','WITH','p.orderId = o.id')
+		   ->leftJoin('App\Entity\Realestate\Object','ob','WITH','o.objectId = ob.id')
+		   ->leftJoin('App\Entity\Commerce\Product','pr','WITH','p.productId = pr.id')
+		   ->leftJoin('App\Entity\Management\Company','c','WITH','o.companyId = c.id')
+		   ->where('p.orderProductStatusId = 8');
+
+		$queryResults = $qb->getQuery()->getArrayResult();
+	
+		if(!empty($queryResults)) {
+			return $queryResults;
+		}
+
+		return array();
+	} 
 }
 
 ?>

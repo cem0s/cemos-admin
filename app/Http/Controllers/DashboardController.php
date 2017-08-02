@@ -19,9 +19,16 @@ class DashboardController extends Controller
 
     public function index()
     {
-    	$orderRepo = $this->em->getRepository('App\Entity\Commerce\Order');
+        $orderRepo = $this->em->getRepository('App\Entity\Commerce\Order');
+    	$orderPRepo = $this->em->getRepository('App\Entity\Commerce\OrderProduct');
+        $deliveredP = $orderPRepo->getDeliveredProducts();
     	$orders = $orderRepo->getAllOrders();
- 
-    	return view('pages.dashboard.index')->with('data',$orders);
+
+    	return view('pages.dashboard.index')
+                ->with('data',array(
+                    'orders' => $orders,
+                    'delivered' => $deliveredP
+
+                ));
     }
 }

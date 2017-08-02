@@ -37,7 +37,40 @@
 @section('scripts')
     @include('partials.scripts')
 @show
-<!-- ./wrapper -->
+<script type="text/javascript">
+    
+$(function () {
+    ajaxCall();
+    setInterval(ajaxCall, 5000); 
+
+    function ajaxCall() 
+    {
+        
+        $.ajax({
+            url:"/cemos-admin/get-notif",
+            success: function(res){
+                var p = JSON.parse(res);
+                $('#count-n').html(p.length);
+                $('#status-head').html('You have '+p.length+' order products that require supplier assignment.');
+
+                var li = "";
+                $.each(p, function (i, item) {
+        
+                    li+= "<li>";
+                        li+= "<a href='/cemos-admin/order-details/"+item.orderId+"/"+item.id+"'>";
+                            li += "<i class='fa fa-shopping-cart text-green'></i> "+ item.product.description+" - Step "+item.step+" ";
+                        li += "</a>";
+                    li+="</li>";
+
+                });
+                $('#menu-n').html('');
+                $('#menu-n').append(li);
+            }
+                
+        });
+    }
+});
+</script>
 
 </body>>
 </html>

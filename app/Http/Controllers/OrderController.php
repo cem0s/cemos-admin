@@ -27,13 +27,14 @@ class OrderController extends Controller
     	return view('pages.orders.index')->with('orderData',$orderData);
     }
 
-    public function orderDetails($id)
+    public function orderDetails($id, $nId = 0)
     {
+        
         $orderProductRepo = $this->em->getRepository('App\Entity\Commerce\OrderProduct');
         $order = $this->orderRepo->getOrderById($id);
         $orderProduct = $orderProductRepo->getOrderProductByOrderId($id);
-
-        return view('pages.orders.order-details')->with('data', array('order' => $order, 'oproduct' => $orderProduct));
+        
+        return view('pages.orders.order-details')->with('data', array('order' => $order, 'oproduct' => $orderProduct, 'nId' => $nId));
     }
 
     public function changeOrderStatus(Request $request)
