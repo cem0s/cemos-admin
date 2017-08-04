@@ -8,6 +8,27 @@ use Illuminate\Support\Facades\Hash;
 
 class ProductRepository extends EntityRepository
 {
+
+	/**
+     * This creates product
+     * @author Gladys Vailoces <gladys@cemos.ph>
+     * @param data array
+     * @return id
+     */
+	public function create($data)
+	{
+		$product = new \App\Entity\Commerce\Product();
+		$product->setName($data['name']);
+		$product->setDescription($data['description']);
+		$product->setPrice($data['price']);
+		$product->setCategory($data['category']);
+		$product->setEnabled(1);
+		$this->_em->persist($product);
+		$this->_em->flush();
+
+		return $product->getId();
+	}
+
 	/**
      * This gets all the products
      * @author Gladys Vailoces <gladys@cemos.ph>
@@ -58,6 +79,52 @@ class ProductRepository extends EntityRepository
 			);
 		}
 	}
+
+
+	/**
+     * This deletes the product
+     * @author Gladys Vailoces <gladys@cemos.ph>
+     * @param id integer
+     * @return boolean
+     */
+	public function delete($id)
+	{
+		$product = $this->_em->find('App\Entity\Commerce\Product', $id);
+		$obj = (array)$product;
+		
+		if(!empty($obj)) {
+			$this->_em->remove($product);
+			$this->_em->flush();
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+     * This updates the product
+     * @author Gladys Vailoces <gladys@cemos.ph>
+     * @param id integer
+     * @return boolean
+     */
+	public function update($data)
+	{
+		$product = $this->_em->find('App\Entity\Commerce\Product', $data['id']);
+		$obj = (array)$product;
+		
+		if(!empty($obj)) {
+			$product->setName($data['name']);
+			$product->setDescription($data['description']);
+			$product->setPrice($data['price']);
+			$product->setCategory($data['category']);
+			$this->_em->merge($product);
+			$this->_em->flush();
+			return true;
+		}
+
+		return false;
+	}
+
 
 
 }

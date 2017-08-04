@@ -100,7 +100,7 @@
 						                			<p>{{$value['company']}} - {{$value['firstName']}} {{$value['lastName']}}</p>
 						                		</div>
 						                		<div class="col-sm-4">
-						                		 <small><i>Order Date:  </i></small><span class="label label-primary">{{date('F d, Y h:i:s', strtotime($value['createdAt']))}}</span>
+						                		 <small><i>Order Date:  &emsp;</i></small><span class="label label-primary">{{date('F d, Y h:i:s', strtotime($value['createdAt']))}}</span>
 						                		</div>
 						                	</div>
 						                 </div>

@@ -33,6 +33,9 @@
               <span class="label label-primary pull-right">{{Session::get('company_count')}}</span>
             </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('company')}}"><i class="fa fa-circle-o"></i> List of Companies</a></li>
+          </ul>
         </li>
         <li class="treeview">
           <a href="#">
@@ -56,7 +59,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Product List</a></li>
+            <li><a href="{{url('product')}}"><i class="fa fa-circle-o"></i> Product List</a></li>
           </ul>
         </li>
         <li class="treeview">

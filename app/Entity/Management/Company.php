@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="company")
  * @Gedmo\Tree(type="closure")
  * @Gedmo\TreeClosure(class="App\Entity\Management\CompanyClosure")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Company
 {

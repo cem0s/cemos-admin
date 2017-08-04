@@ -9,6 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * 
  * @ORM\Entity
  * @ORM\Table(name="company_company_type")
+
  */
 class CompanyCompanyType
 {
