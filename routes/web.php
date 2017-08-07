@@ -33,8 +33,12 @@ Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/assign-supplier', 'SupplierController@assignSupplier')->name('assign-supplier');
 	Route::post('/add-supplier', 'SupplierController@postAddSupplier')->name('add-supplier');
 	Route::get('/del-supplier', 'SupplierController@deleteSupplier')->name('del-supplier');
+	Route::get('/supplier-type', 'SupplierController@viewSupplierTypes')->name('supplier-type');
 
 	Route::get('/get-notif', 'NotificationController@getNotifs')->name('get-notif');
+	Route::post('/add-supplier-type', 'SupplierController@postAddSupplierType')->name('add-supplier-type');
+	Route::get('/edit-supplier-type/{id}', 'SupplierController@getTypeById')->name('edit-supplier-type');
+	Route::post('/edit-supplier-type', 'SupplierController@postEditType')->name('edit-supplier-type');
 
 	Route::get('/company', 'CompanyController@index')->name('company');
 	Route::get('/get-company-json', 'CompanyController@getCompanyJson')->name('get-company-json');

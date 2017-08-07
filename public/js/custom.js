@@ -139,6 +139,11 @@ function addSupplier()
 	$('#add-supplier-modal').modal('show');
 }
 
+function addSupplierType()
+{
+	$('#add-supp-type-modal').modal('show');
+}
+
 function compDelModal(id)
 {
 	getDelConfirmationCom(id);
@@ -382,6 +387,21 @@ function editProduct(id)
 
 			$('#product-edit #category').append(t);
 
+		}
+	});
+}
+
+function editType(id)
+{
+	$('#edit-type').modal('show');
+
+	$.ajax({
+		url: "/cemos-admin/edit-supplier-type/"+id,
+		success:function(res){
+			console.log(res);
+			var d = $.parseJSON(res);
+			$('#typeName').val(d.name);
+			$('#typeId').val(d.id);
 		}
 	});
 }

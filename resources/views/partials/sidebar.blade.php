@@ -47,7 +47,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{url('supplier')}}"><i class="fa fa-circle-o"></i> View Suppliers</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Supplier Types</a></li>
+            <li><a href="{{url('supplier-type')}}"><i class="fa fa-circle-o"></i> Supplier Types</a></li>
           </ul>
         </li>
           <li class="treeview">
