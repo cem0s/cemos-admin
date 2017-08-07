@@ -27,14 +27,17 @@ Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/credit-points', 'CreditPointsController@index')->name('credit-points');
 	Route::post('/add-credit', 'CreditPointsController@postCreditPoints')->name('add-credit');
 	
-	Route::get('/get-suppliers', 'SupplierController@getSuppliers')->name('get-suppliers');
+	Route::get('/supplier', 'SupplierController@getSuppliers')->name('supplier');
 	Route::get('/get-supplier-type', 'SupplierController@getSupplierTypes')->name('get-supplier-type');
 	Route::get('/get-supplier-by-type', 'SupplierController@getSupplierByType')->name('get-supplier-by-type');
 	Route::get('/assign-supplier', 'SupplierController@assignSupplier')->name('assign-supplier');
+	Route::post('/add-supplier', 'SupplierController@postAddSupplier')->name('add-supplier');
+	Route::get('/del-supplier', 'SupplierController@deleteSupplier')->name('del-supplier');
 
 	Route::get('/get-notif', 'NotificationController@getNotifs')->name('get-notif');
 
 	Route::get('/company', 'CompanyController@index')->name('company');
+	Route::get('/get-company-json', 'CompanyController@getCompanyJson')->name('get-company-json');
 	Route::post('/add-company', 'CompanyController@addCompany')->name('add-company');
 	Route::get('/del-company/{id}', 'CompanyController@delCompany')->name('del-company');
 	Route::get('/edit-company/{id}', 'CompanyController@editCompany')->name('edit-company');
@@ -46,6 +49,9 @@ Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/del-product/{id}', 'ProductController@delProduct')->name('del-product');
 	Route::get('/edit-product/{id}', 'ProductController@editProduct')->name('edit-product');
 	Route::post('/edit-product', 'ProductController@postEditProduct')->name('edit-product');
+
+	
+
 
 
 

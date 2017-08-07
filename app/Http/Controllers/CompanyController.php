@@ -23,6 +23,11 @@ class CompanyController extends Controller
 		return view('pages.company.index')->with('data', $allC);
 	}
 
+	public function getCompanyJson()
+	{
+		echo json_encode($this->compRepo->getAllCompany());
+	}
+
 	public function addCompany(Request $request)
 	{
 		$data = array(

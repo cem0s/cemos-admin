@@ -20,7 +20,20 @@ class SupplierController extends Controller
 
     public function getSuppliers()
     {
+        $supST = $this->em->getRepository('App\Entity\Supplier\SupplierSupplierType');
+        $data = $supST->getSuppliers();
 
+        return view('pages.suppliers.index')->with('data', $data);
+
+    }
+
+    public function postAddSupplier(Request $request)
+    {
+        $data = $request->all();
+        $supST = $this->em->getRepository('App\Entity\Supplier\SupplierSupplierType');
+        $addSupplier = $supST->addSupplier($data);
+        
+        return redirect()->route('supplier');
     }
 
     public function getSupplierTypes()
@@ -39,5 +52,13 @@ class SupplierController extends Controller
     {
     	$opRepo = $this->em->getRepository('App\Entity\Commerce\OrderProduct');
     	echo $opRepo->assignSupplier($request->all());
+    }
+
+    public function deleteSupplier(Request $request)
+    {
+        $data = $request->all();
+        $supST = $this->em->getRepository('App\Entity\Supplier\SupplierSupplierType');
+
+        echo $supST->delSupplier($data);
     }
 }

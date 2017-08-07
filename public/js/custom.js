@@ -34,7 +34,7 @@ function changeStatus(id, orderId)
 function changeSupplier(id, nId)
 {
 	getModalForSupplier(id, nId);
-	getSupplierType();
+	getSelectTagOptions('modal-supplier','type','get-supplier-type');
 	$('#modal-supplier').modal('show');
 
 }
@@ -66,32 +66,23 @@ function getModalForSupplier(id, nId)
    $('body').append(modal);
 }
 
-function getSupplierList()
+function getSelectTagOptions(modalName, inputName, url)
 {
+	$('#'+modalName+' select[name="'+inputName+'"]').html('');
 	$.ajax({
-		url: "/cemos-admin/get-suppliers",
-		success: function(res){
-
-		}
-	});
-}
-
-function getSupplierType()
-{
-	$('#modal-supplier select[name="type"]').html('');
-	$.ajax({
-		url: "/cemos-admin/get-supplier-type",
+		url: "/cemos-admin/"+url,
 		success: function(res){
 			var d = $.parseJSON(res);
-            var options = '<option value="-">--Select Supplier Type--</option>';
+            var options = '<option value="">--Select Here--</option>';
             $.each(d, function (i, item) {
                 options += '<option value="' + item.id + '">' + item.name + '</option>';
 
             });
-            $('#modal-supplier select[name="type"]').append(options);
+            $('#'+modalName+' select[name="'+inputName+'"]').append(options);
 		}
 	});
 }
+
 
 function showSupplier()
 {
@@ -113,6 +104,7 @@ function showSupplier()
 		}
 	});
 }
+
 
 function assign(id, nId)
 {
@@ -139,11 +131,27 @@ function addCompany()
 	$('#company-modal').modal('show');
 }
 
+
+function addSupplier()
+{
+	getSelectTagOptions('add-supplier-modal','supplier','get-company-json');
+	getSelectTagOptions('add-supplier-modal','supplierType','get-supplier-type');
+	$('#add-supplier-modal').modal('show');
+}
+
 function compDelModal(id)
 {
 	getDelConfirmationCom(id);
 	$('#modal-del-comp').modal('show');
 }
+
+
+function compDelSup(id, typeId)
+{
+	getSupplierDeleteConf(id, typeId);
+	$('#modal-del-sup').modal('show');
+}
+
 
 function getDelConfirmationCom(id)
 {
@@ -172,6 +180,33 @@ function getDelConfirmationCom(id)
    $('body').append(modal);
 }
 
+function getSupplierDeleteConf(id, typeId)
+{
+	var modal = '';
+
+	modal+='<div class="modal fade" id="modal-del-sup">'
+	    modal+='<div class="modal-dialog">';
+	        modal+='<div class="modal-content">';
+		        modal+='<div class="modal-header">';
+		            modal+='<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+		               modal+='<span aria-hidden="true">&times;</span></button>';
+		            modal+='<h4 class="modal-title">Confirmation</h4>';
+		        modal+='</div>';
+		        modal+='<div class="modal-body">';
+		            modal+='Are you sure you want to delete this supplier?<br>';
+		        modal+='</div>';
+		        modal+='<div class="modal-footer">';
+		            modal+='<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>';
+		            modal+='<button type="button" class="btn btn-primary" onclick="delSupplier('+id+','+typeId+')">Yes</button>';
+		        modal+='</div>';
+	        modal+='</div>';
+	   modal+=' </div>';
+   modal+=' </div>';
+
+   $('body').append(modal);
+}
+
+
 function delCompany(id)
 {
 	$.ajax({
@@ -188,6 +223,27 @@ function delCompany(id)
 		}
 	});
 }
+
+
+
+function delSupplier(id, typeId)
+{
+	$.ajax({
+		url: "/cemos-admin/del-supplier",
+		data: {id:id, typeId:typeId},
+		beforeSend:  function () {
+
+		},
+		success: function (res) {
+			if(res) {
+				location.reload();
+			} else {
+				alert('Oops, there\'s an error in submitting the form. Kindly contact the web admin.');
+			}
+		}
+	});
+}
+
 
 function editCompany(id)
 {
