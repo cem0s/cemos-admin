@@ -23,6 +23,10 @@ Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/orders', 'OrderController@index')->name('orders');
 	Route::get('/order-details/{id}/{nId?}', 'OrderController@orderDetails')->name('order-details');
 	Route::get('/change-order-status', 'OrderController@changeOrderStatus')->name('change-order-status');
+	Route::get('/all-status', 'OrderController@getAllStatus')->name('all-status');
+	Route::get('/edit-status/{id}', 'OrderController@editStatus')->name('edit-status');
+	Route::post('/edit-status', 'OrderController@postEditStatus')->name('edit-status');
+	Route::post('/add-status', 'OrderController@postAddStatus')->name('add-status');
 
 	Route::get('/credit-points', 'CreditPointsController@index')->name('credit-points');
 	Route::post('/add-credit', 'CreditPointsController@postCreditPoints')->name('add-credit');
@@ -46,7 +50,6 @@ Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/del-company/{id}', 'CompanyController@delCompany')->name('del-company');
 	Route::get('/edit-company/{id}', 'CompanyController@editCompany')->name('edit-company');
 	Route::post('/edit-company', 'CompanyController@postEditCompany')->name('edit-company');
-
 
 	Route::get('/product', 'ProductController@index')->name('product');
 	Route::post('/add-product', 'ProductController@addProduct')->name('add-product');

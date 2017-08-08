@@ -144,6 +144,11 @@ function addSupplierType()
 	$('#add-supp-type-modal').modal('show');
 }
 
+function addStatus()
+{
+	$('#add-status').modal('show');
+}
+
 function compDelModal(id)
 {
 	getDelConfirmationCom(id);
@@ -385,7 +390,7 @@ function editProduct(id)
 				t += "<option value="+v.value+">"+v.name+"</option>";	
 			});
 
-			$('#product-edit #category').append(t);
+			$('#product-edit #category').html(t);
 
 		}
 	});
@@ -402,6 +407,40 @@ function editType(id)
 			var d = $.parseJSON(res);
 			$('#typeName').val(d.name);
 			$('#typeId').val(d.id);
+		}
+	});
+}
+
+function editStatus(id)
+{
+	$('#edit-status').modal('show');
+
+	$.ajax({
+		url: "/cemos-admin/edit-status/"+id,
+		success:function(res){
+
+			var d = $.parseJSON(res);
+			$('#statusName').val(d.name);
+			$('#statusId').val(d.id);
+
+			var t = "";
+			var type = [
+				{name:"Order",value:"1"},
+				{name:"Order Product",value:"2"}
+			];
+
+			$.each(type, function(i, v){
+				if(v.value == d.type) {
+					t += "<option value="+v.value+" selected='selected'>"+v.name+"</option>";
+				} else {
+					t += "<option value="+v.value+">"+v.name+"</option>";	
+				}
+				
+			});
+
+			$('#edit-status #typeId').html(t);
+
+			
 		}
 	});
 }
