@@ -86,7 +86,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{url('orders')}}"><i class="fa fa-circle-o"></i> Order List</a></li>
-            <li><a href="{{url('order-product-list')}}"><i class="fa fa-circle-o"></i> Order Product List</a></li>
+            {{-- <li><a href="{{url('order-product-list')}}"><i class="fa fa-circle-o"></i> Order Product List</a></li> --}}
             <li><a href="{{url('all-status')}}"><i class="fa fa-circle-o"></i> Status</a></li>
           </ul>
         </li>
