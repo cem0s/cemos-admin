@@ -27,12 +27,14 @@
 <!-- SlimScroll -->
 <script src="{{ asset('css/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 
+<script src="{{ asset('css/select2/dist/js/select2.full.min.js')}}"></script>
+
 <!-- FastClick -->
 <script src="{{ asset('css/fastclick/lib/fastclick.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('js/adminlte.min.js')}}"></script>
-<script src="{{ asset('js/app-admin.min.js')}}"></script>
+
 <script src="{{ asset('js/custom.js')}}"></script>
 
-</script>
+
 

@@ -130,19 +130,19 @@ class OrderProductRepository extends EntityRepository
 
 	}
 
-	public function getDeliveredProducts()
+	public function getAllOrderProducts()
 	{
 		$qb = $this->_em->createQueryBuilder();
-		$qb->select('p.id, o.id as orderId, pr.name as product, ob.name as object, c.name as company')
+		$qb->select('p.id, o.id as orderId, pr.name as product, ob.name as object, c.name as company, p.supplierId, p.orderProductStatusId')
 		   ->from('App\Entity\Commerce\OrderProduct','p')
 		   ->leftJoin('App\Entity\Commerce\Order','o','WITH','p.orderId = o.id')
 		   ->leftJoin('App\Entity\Realestate\Object','ob','WITH','o.objectId = ob.id')
 		   ->leftJoin('App\Entity\Commerce\Product','pr','WITH','p.productId = pr.id')
-		   ->leftJoin('App\Entity\Management\Company','c','WITH','o.companyId = c.id')
-		   ->where('p.orderProductStatusId = 8');
+		   ->leftJoin('App\Entity\Management\Company','c','WITH','o.companyId = c.id');
+
 
 		$queryResults = $qb->getQuery()->getArrayResult();
-	
+
 		if(!empty($queryResults)) {
 			return $queryResults;
 		}

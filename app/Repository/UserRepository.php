@@ -351,6 +351,23 @@ class UserRepository extends EntityRepository
 		);
     }
 
+    /**
+     * This list all users in the system
+     * @author Gladys Vailoces <gladys@cemos.ph>
+     * @param $data 
+     * @return array
+     */
+    public function getUsers()
+    {
+
+		$qb = $this->_em->createQueryBuilder();
+		$qb->select('u')
+		   ->from('App\Entity\Management\User', 'u')
+		   ->where('u.active = true');
+		
+		return $qb->getQuery()->getArrayResult();
+    }
+
     private function checkIfAdmin($companyId)
     {
     	$repo = $this->_em->getRepository('App\Entity\Management\Company');

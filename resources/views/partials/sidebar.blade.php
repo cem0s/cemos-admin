@@ -33,6 +33,9 @@
               <span class="label label-primary pull-right">{{Session::get('company_count')}}</span>
             </span>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('company')}}"><i class="fa fa-circle-o"></i> List of Companies</a></li>
+          </ul>
         </li>
         <li class="treeview">
           <a href="#">
@@ -43,8 +46,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> View Suppliers</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Supplier Types</a></li>
+            <li><a href="{{url('supplier')}}"><i class="fa fa-circle-o"></i> View Suppliers</a></li>
+            <li><a href="{{url('supplier-type')}}"><i class="fa fa-circle-o"></i> Supplier Types</a></li>
           </ul>
         </li>
           <li class="treeview">
@@ -56,7 +59,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Product List</a></li>
+            <li><a href="{{url('product')}}"><i class="fa fa-circle-o"></i> Product List</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -83,9 +86,8 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{url('orders')}}"><i class="fa fa-circle-o"></i> Order List</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Order Status</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Order Product List</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Order Product Status</a></li>
+            {{-- <li><a href="{{url('order-product-list')}}"><i class="fa fa-circle-o"></i> Order Product List</a></li> --}}
+            <li><a href="{{url('all-status')}}"><i class="fa fa-circle-o"></i> Status</a></li>
           </ul>
         </li>
         <li class="treeview">

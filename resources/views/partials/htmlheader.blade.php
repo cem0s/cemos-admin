@@ -21,6 +21,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{ asset('css/font-awesome-animation.min.css')}}">
+<link rel="stylesheet" href="{{ asset('css/select2/dist/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
 
 

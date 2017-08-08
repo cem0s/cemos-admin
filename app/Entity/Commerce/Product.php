@@ -47,7 +47,7 @@ class Product
     /**
      * @var decimal
      *
-     * @ORM\Column(name="comm_price", type="decimal", precision=10, scale=2, nullable=false)
+     * @ORM\Column(name="comm_price", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $commPrice;
 

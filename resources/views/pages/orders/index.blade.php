@@ -20,7 +20,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              	<table id="ordertable" class="table table-bordered table-striped">
+              	<table id="data-table" class="table table-bordered table-striped">
                	 	<thead>
                 		<tr>
 			                <th>Order #</th>

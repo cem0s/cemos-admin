@@ -42,4 +42,42 @@ class OrderController extends Controller
         echo $this->orderRepo->updateOrderStatus($request->all());
         exit();
     }
+
+    public function getAllStatus()
+    {
+        $statusRepo = $this->em->getRepository('App\Entity\Commerce\Status');
+        $data = $statusRepo->getAllStatus();
+
+        return view('pages.orders.status')->with('data', $data);
+    }
+
+    public function editStatus($id)
+    {
+        $statusRepo = $this->em->getRepository('App\Entity\Commerce\Status');
+        echo json_encode($statusRepo->getStatusById($id));
+    }
+
+    public function postEditStatus(Request $request)
+    {
+        $data = $request->all();
+        $statusRepo = $this->em->getRepository('App\Entity\Commerce\Status');
+        $res =  json_encode($statusRepo->updateStatusById($data));
+
+        if($res) {
+            return redirect()->route('all-status');
+        }
+        return view('pages.error.warning');
+    }
+
+    public function postAddStatus(Request $request)
+    {
+        $data = $request->all();
+        $statusRepo = $this->em->getRepository('App\Entity\Commerce\Status');
+        $res =  json_encode($statusRepo->addStatus($data));
+
+        if($res) {
+            return redirect()->route('all-status');
+        }
+        return view('pages.error.warning');
+    }
 }

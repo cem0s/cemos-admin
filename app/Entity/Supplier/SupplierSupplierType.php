@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * SupplierSupplierType
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\App\Repository\SupplierSupplierTypeRepository")
  * @ORM\Table(name="supplier_supplier_type")
  */
 
