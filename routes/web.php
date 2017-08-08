@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth','web']], function(){
 
 
 	Route::get('/get-notif', 'NotificationController@getNotifs')->name('get-notif');
+	Route::get('/transactions', 'TransactionsController@index')->name('transactions');
 
 	Route::post('/add-credit', 'CreditPointsController@postCreditPoints')->name('add-credit');
 
