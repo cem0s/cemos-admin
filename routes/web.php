@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/supplier-type', 'SupplierController@viewSupplierTypes')->name('supplier-type');
 
 	Route::get('/get-notif', 'NotificationController@getNotifs')->name('get-notif');
+	
+	Route::get('/transactions', 'TransactionsController@index')->name('transactions');
 	Route::post('/add-supplier-type', 'SupplierController@postAddSupplierType')->name('add-supplier-type');
 	Route::get('/edit-supplier-type/{id}', 'SupplierController@getTypeById')->name('edit-supplier-type');
 	Route::post('/edit-supplier-type', 'SupplierController@postEditType')->name('edit-supplier-type');
@@ -67,6 +69,7 @@ Route::group(['middleware' => ['auth','web']], function(){
 	
 
 
+>>>>>>> 8fd9292183bb8717d7e1a7f0204bf553ddb3f73d
 
 
 });

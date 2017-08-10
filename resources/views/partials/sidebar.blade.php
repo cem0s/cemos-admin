@@ -105,13 +105,13 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-print"></i>
-            <span>Invoices</span>
+            <span>Transactions</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> All Invoices</a></li>
+            <li><a href="{{url('transactions')}}"><i class="fa fa-circle-o"></i> All Transactions</a></li>
           </ul>
         </li>
         <li class="treeview">
