@@ -66,10 +66,6 @@ Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/deac-user/{id}', 'UserController@postDeacUser')->name('deac-user');
 
 
-	
-
-
->>>>>>> 8fd9292183bb8717d7e1a7f0204bf553ddb3f73d
 
 
 });
