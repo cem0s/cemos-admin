@@ -37,6 +37,18 @@
             <li><a href="{{url('company')}}"><i class="fa fa-circle-o"></i> List of Companies</a></li>
           </ul>
         </li>
+          <li class="treeview">
+          <a href="#">
+            <i class="fa fa-user"></i>
+            <span>Users Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('user')}}"><i class="fa fa-circle-o"></i> List of Users</a></li>
+          </ul>
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-users"></i>

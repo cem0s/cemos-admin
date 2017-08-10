@@ -57,6 +57,13 @@ Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/edit-product/{id}', 'ProductController@editProduct')->name('edit-product');
 	Route::post('/edit-product', 'ProductController@postEditProduct')->name('edit-product');
 
+	Route::get('/user', 'UserController@index')->name('user');
+	Route::post('/user', 'UserController@postUser');
+	Route::get('/get-user/{id}', 'UserController@getUser')->name('get-user');
+	Route::post('/edit-user', 'UserController@postEditUser');
+	Route::get('/deac-user/{id}', 'UserController@postDeacUser')->name('deac-user');
+
+
 	
 
 
