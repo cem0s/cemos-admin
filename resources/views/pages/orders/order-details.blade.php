@@ -22,9 +22,12 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-4">
-				{{ $data['order']['company']}} <br>
-				{{ $data['order']['firstName']}} {{ $data['order']['lastName']}} <br>
-				{{ $data['order']['address1']}}, {{$data['order']['town']}}, {{$data['order']['zipcode']}}, Philippines <br>
+				<ul class="fa-ul">
+					<li><i class="fa-li fa fa-building"></i> {{ $data['order']['company']}} </li>
+					<li><i class="fa-li fa fa-user"></i> {{ $data['order']['firstName']}} {{ $data['order']['lastName']}} </li>
+					<li><i class="fa-li fa fa-address-card-o"></i> {{ $data['order']['address1']}}, {{$data['order']['town']}}, {{$data['order']['zipcode']}}, Philippines </li>
+					
+				</ul>
 				
 			</div>
 			<div class="col-sm-4"> <b>Status: </b> {{ $data['order']['status']}} <br>

@@ -31,20 +31,25 @@ class UserRepository extends EntityRepository
 
 		} else {
 			//Initialize company and address repo
-			$companyRepo = $this->_em->getRepository('App\Entity\Management\Company');
+			//$companyRepo = $this->_em->getRepository('App\Entity\Management\Company');
 			$addressRepo = $this->_em->getRepository('App\Entity\Management\Address');
 
 			//Create the company
-			$companyId = $companyRepo->create($data);
+			//$companyId = $companyRepo->create($data);
 
 			//Create new address
-			$addressId = $addressRepo->create($data, $companyId);
+			$addressRepo->create($data, $data['company_name']);
 
 			//Create new invoice address
-			$invoiceAddressId = $addressRepo->createInvoiceAddress($data, $companyId);
+			$addressRepo->createInvoiceAddress($data, $data['company_name']);
+
+			if(isset($data['groupId']) && $data['groupId'] == 1) {
+				$user = new \App\Entity\Management\Admin();
+			} else {
+				$user = new \App\Entity\Management\User();
+			}
 
 			//Create the user
-			$user = new \App\Entity\Management\User();
 			$user->setFirstName($data['first_name']);
 			$user->setLastName($data['last_name']);
 			$user->setEmail($data['email']);
@@ -52,7 +57,11 @@ class UserRepository extends EntityRepository
 			$user->setEmailVerified(0);
 			$user->setPassword(Hash::make($data['password']));
 			$user->setActive(0);
-			$user->setCompanyId($companyId);
+			$user->setCompanyId($data['company_name']);
+
+			if(isset($data['groupId'])) {
+				$user->setGroupId($data['groupId']);
+			}
 			
 			$this->_em->persist($user);
 			$this->_em->flush();
@@ -214,6 +223,7 @@ class UserRepository extends EntityRepository
 						'active' 		=> $user->getActive(),
 						'company_id' 	=> $user->getCompanyId(),
 						'created_at' 	=> $user->getCreatedAt()->format('c'),
+						'group_id' 		=> $user->getGroupId()
 					),
 					'company' => $companyRepo->getCompanyById($user->getCompanyId()),
 					'address' => $addressRepo->getAddressByCompanyId($user->getCompanyId()),
@@ -313,17 +323,28 @@ class UserRepository extends EntityRepository
 		$companyRepo = $this->_em->getRepository('App\Entity\Management\Company');
 		$addressRepo = $this->_em->getRepository('App\Entity\Management\Address');
 
-		$companyId = $companyRepo->create($data);
-		$addressId = $addressRepo->create($data, $companyId);
+		//$companyId = $companyRepo->create($data);
+		$addressRepo->create($data, $data['company_id']);
+		$addressRepo->createInvoiceAddress($data, $data['company_id']);
 
-		$user = $this->getUserById($data['user']['id']);
+		$user = $this->getUserById($data['userId']);
     	if(!empty((array)$user)){
-			$user->setFirstName($data['user']['firstname']);
-			$user->setLastName($data['user']['lastname']);
-			$user->setEmail($data['user']['email']);
-			$user->setUsername($data['user'] ['firstname'].$data['user']['lastname']);
-			$user->setCompanyId($companyId);
+			$user->setFirstName($data['first_name']);
+			$user->setLastName($data['last_name']);
+			$user->setEmail($data['email']);
+			$user->setUsername($data ['first_name'].$data['last_name']);
+			if(!isset($data['company_id']) && !empty($data['company_id'])) {
+				$user->setCompanyId($data['company_id']);
+			}
 			
+			if(!isset($data['groupId']) && !empty($data['groupId'])) {
+				$user->setCompanyId($data['groupId']);
+			}
+			
+			if(!empty($data['password'])) {
+				$user->setPassword(Hash::make($data['password']));
+			}
+
 			$this->_em->merge($user);
 			$this->_em->flush();
 		} 
@@ -359,13 +380,21 @@ class UserRepository extends EntityRepository
      */
     public function getUsers()
     {
-
+    	$companyRepo = $this->_em->getRepository('App\Entity\Management\Company');
 		$qb = $this->_em->createQueryBuilder();
 		$qb->select('u')
-		   ->from('App\Entity\Management\User', 'u')
-		   ->where('u.active = true');
+		   ->from('App\Entity\Management\User', 'u');
 		
-		return $qb->getQuery()->getArrayResult();
+		$queryResults = $qb->getQuery()->getArrayResult();
+
+		if(!empty($queryResults)) {
+			foreach ($queryResults as $key => $value) {
+				$queryResults[$key]['company'] = $companyRepo->getCompanyById($value['companyId']);
+			}
+			return $queryResults;
+		}
+
+		return array();
     }
 
     private function checkIfAdmin($companyId)
@@ -380,6 +409,22 @@ class UserRepository extends EntityRepository
     		}
     	}
     	return false;
+    }
+
+    public function deactivateUser($id)
+    {
+    	$user = $this->getUserById($id);
+    	if(!empty((array)$user)){
+		
+			$user->setActive(0);
+			
+			$this->_em->merge($user);
+			$this->_em->flush();
+
+			return true;
+		} 
+
+		return false;
     }
 
     /**

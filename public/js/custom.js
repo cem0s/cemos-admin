@@ -149,6 +149,12 @@ function addStatus()
 	$('#add-status').modal('show');
 }
 
+function addUser()
+{
+	getSelectTagOptions('user-modal','company_name','get-company-json');
+	$('#user-modal').modal('show');
+}
+
 function compDelModal(id)
 {
 	getDelConfirmationCom(id);
@@ -403,7 +409,6 @@ function editType(id)
 	$.ajax({
 		url: "/cemos-admin/edit-supplier-type/"+id,
 		success:function(res){
-			console.log(res);
 			var d = $.parseJSON(res);
 			$('#typeName').val(d.name);
 			$('#typeId').val(d.id);
@@ -441,6 +446,134 @@ function editStatus(id)
 			$('#edit-status #typeId').html(t);
 
 			
+		}
+	});
+}
+
+function editUser(id)
+{
+	$('#user-edit').modal('show');
+
+	$.ajax({
+		url: "/cemos-admin/get-user/"+id,
+		success:function(res) {
+			var d = $.parseJSON(res);
+			var debt = "";
+			var g = "";
+
+
+			$("#userId").val(d.user.id);
+			$("#first_name").val(d.user.firstname);
+			$("#last_name").val(d.user.lastname);
+			$("#email").val(d.user.email);
+			$("#password").val("");
+			$("#address_1").val(d.address.address_1);
+			$("#addressId").val(d.address.id);
+			$("#inAddressId").val(d.invoiceaddress.id);
+			$("#address_2").val(d.address.address_2);
+			$("#postal_code").val(d.address.zipcode);
+			$("#town").val(d.address.town);
+			$("#iban").val(d.invoiceaddress.cocNumber);
+			$("#tax_number").val(d.invoiceaddress.tax);
+
+			if(d.user.group_id == 1) {
+				g += "<option value='1' selected='selected'> Admin </option>";
+				g += "<option value='0' > User </option>";
+			} else {
+				g += "<option value='1' > Admin </option>";
+				g += "<option value='0' selected='selected'> User </option>";
+			}	
+
+			getCompanyJson(d.user.company_id);
+
+
+			if(d.invoiceaddress.payment == "Debit") {
+				debt += "<input type='radio' name='isDebit' value='Debit' checked='checked'> Debit  ";
+				debt += "<input type='radio' name='isDebit' value='Invoice'> Invoice";
+			} else {
+				debt += "<input type='radio' name='isDebit' value='Debit'> Debit  ";
+				debt += "<input type='radio' name='isDebit' value='Invoice' checked='checked'> Invoice";
+			}
+			$('#debitOpt').html(debt);
+			$('#groupId').html(g);
+
+
+
+
+		}
+	});
+}
+
+function successCallback(data, id) 
+{
+	var d = $.parseJSON(data);
+	var opt = ""; 
+	$.each(d, function (i, v){
+
+		if(v.id == id) {
+			opt += "<option value="+v.id+" selected='selected'> "+v.name+"</option>";
+		} else {
+			opt += "<option value="+v.id+"> "+v.name+"</option>";
+		}
+	});
+	$('#user-edit #company_id').html(opt);
+}
+
+function getCompanyJson(id)
+{
+	$.ajax({
+		url: "/cemos-admin/get-company-json",
+		success: function (res) {
+			successCallback(res, id);
+		}
+	});
+}
+
+function deactivateUser(id)
+{
+	getDeacUserModal(id);
+	$('#user-deac').modal('show');
+}
+
+
+function getDeacUserModal(id)
+{
+	var modal = '';
+
+	modal+='<div class="modal fade" id="user-deac">'
+	    modal+='<div class="modal-dialog">';
+	        modal+='<div class="modal-content">';
+		        modal+='<div class="modal-header">';
+		            modal+='<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+		               modal+='<span aria-hidden="true">&times;</span></button>';
+		            modal+='<h4 class="modal-title">Confirmation</h4>';
+		        modal+='</div>';
+		        modal+='<div class="modal-body">';
+		            modal+='Are you sure you want to deactivate this user?<br>';
+		            modal+='Please be noted that the orders associated with it will not be available upon deletion.';
+		        modal+='</div>';
+		        modal+='<div class="modal-footer">';
+		            modal+='<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>';
+		            modal+='<button type="button" class="btn btn-primary" onclick="deacUser('+id+')">Yes</button>';
+		        modal+='</div>';
+	        modal+='</div>';
+	   modal+=' </div>';
+   modal+=' </div>';
+
+   $('body').append(modal);
+}
+
+function deacUser(id)
+{
+	$.ajax({
+		url: "/cemos-admin/deac-user/"+id,
+		success: function(res){
+			if(res) {
+				alert("User has been deactivated");
+				location.reload();
+			} else {
+				alert("There\'s an error in deactivating the user. Kindly contact the web admin.");
+			}
 		}
 	});
 }
