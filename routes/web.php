@@ -58,11 +58,4 @@ Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/del-product/{id}', 'ProductController@delProduct')->name('del-product');
 	Route::get('/edit-product/{id}', 'ProductController@editProduct')->name('edit-product');
 	Route::post('/edit-product', 'ProductController@postEditProduct')->name('edit-product');
-
-	
-
-
->>>>>>> 8fd9292183bb8717d7e1a7f0204bf553ddb3f73d
-
-
 });

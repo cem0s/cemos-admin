@@ -15,15 +15,26 @@ class TransactionsController extends Controller
     public function __construct(EntityManager $em)
     {
     	$this->em = $em;
-        $this->orderRepo = $em->getRepository('App\Entity\Commerce\Order');
+        $this->transRepo = $em->getRepository('App\Entity\Commerce\Transaction');
     }
 
     public function index()
     {
 
     	
-    	$orderData = $this->orderRepo->getAllOrders();
+        $creditPointsTrans = $this->transRepo->getAllCreditPointsTrans();
+        $invoiceTrans = $this->transRepo->getAllInvoiceTrans();
+        $creditCardTrans = $this->transRepo->getAllCreditCardTrans();
+        $visaTrans = $this->transRepo->getAllVisaTrans();
+    	$paypalTrans = $this->transRepo->getAllPaypalTrans();
     
-    	return view('pages.transactions.index')->with('orderData',$orderData);
+    	return view('pages.transactions.index')->with(
+            array(
+                'credit_points' => $creditPointsTrans,
+                'invoice' => $invoiceTrans,
+                'credit_card' => $creditCardTrans,
+                'visa' => $visaTrans,
+                'paypal' => $paypalTrans,
+            ));
     }
 }
