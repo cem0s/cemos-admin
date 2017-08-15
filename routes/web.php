@@ -66,6 +66,12 @@ Route::group(['middleware' => ['auth','web']], function(){
 	Route::get('/deac-user/{id}', 'UserController@postDeacUser')->name('deac-user');
 
 
+	Route::get('/profile', 'ProfileController@index')->name('profile');
+	Route::post('/profile', 'ProfileController@editProfile');
+
+	Route::get('/error-page', 'ErrorController@errorPage')->name('error-page');
+
+
 
 
 });

@@ -333,9 +333,18 @@ class UserRepository extends EntityRepository
 			$user->setLastName($data['last_name']);
 			$user->setEmail($data['email']);
 			$user->setUsername($data ['first_name'].$data['last_name']);
-			$user->setCompanyId($data['company_id']);
-			$user->setGroupId($data['groupId']);
+			if(!isset($data['company_id']) && !empty($data['company_id'])) {
+				$user->setCompanyId($data['company_id']);
+			}
 			
+			if(!isset($data['groupId']) && !empty($data['groupId'])) {
+				$user->setCompanyId($data['groupId']);
+			}
+			
+			if(!empty($data['password'])) {
+				$user->setPassword(Hash::make($data['password']));
+			}
+
 			$this->_em->merge($user);
 			$this->_em->flush();
 		} 
